@@ -22,8 +22,9 @@ f = open('fun.txt', 'r', encoding='UTF-8')
 jokes = f.read().split('\n')
 f.close()
 
-# посылаются случайные шутки с периодом 30 секунд
-bot.send_message(CHANNEL_NAME, random.choice(jokes))
-time.sleep(30)
-bot.send_message(CHANNEL_NAME, random.choice(jokes))
+fl = 'start'
 
+# посылаются случайные шутки с периодом 10 минут
+while fl == 'start':
+    bot.send_message(CHANNEL_NAME, random.choice(jokes))
+    time.sleep(600)
