@@ -27,4 +27,4 @@ fl = 'start'
 # посылаются случайные шутки с периодом 10 минут
 while fl == 'start':
     bot.send_message(CHANNEL_NAME, random.choice(jokes))
-    time.sleep(600)
+    time.sleep(1800)
