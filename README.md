@@ -43,12 +43,11 @@ jokes = f.read().split('\n')
 f.close()
 ```
 
-#### Пока не закончатся шутки, посылаем их в канал часовой паузой (3600)
+#### Посылаются случайные шутки через случайные периоды времени
 
 ```python
-for joke in jokes:
-    bot.send_message(CHANNEL_NAME, joke)
-    # Делаем паузу в один час
-    time.sleep(3600)
-bot.send_message(CHANNEL_NAME, "Анекдоты закончились :-(")
+fl = 'start'
+while fl == 'start':
+    bot.send_message(CHANNEL_NAME, random.choice(jokes))
+    time.sleep(random.randint(60, 3600))
 ```
