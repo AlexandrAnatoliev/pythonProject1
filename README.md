@@ -1,4 +1,4 @@
-# telegramBot4
+# pythonProject1
 
 [Ru] БОТ, ВЕДУЩИЙ TELEGRAM-КАНАЛ С АНЕКДОТАМИ
 
