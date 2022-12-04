@@ -48,8 +48,14 @@ f.close()
 #### Посылаются случайные шутки через случайные периоды времени
 
 ```python
-fl = 'start'
-while fl == 'start':
-    bot.send_message(CHANNEL_NAME, random.choice(jokes))
+fl_go = 'go'
+while fl_go == 'go':
+    # таймер работы бота
     time.sleep(random.randint(60, 3600))
+    fl = 'start'
+
+# посылаются случайные шутки через случайные периоды времени
+    if fl == 'start':
+        bot.send_message(CHANNEL_NAME, random.choice(jokes))
+        fl = 'stop'
 ```

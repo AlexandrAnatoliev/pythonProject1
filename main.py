@@ -22,9 +22,13 @@ f = open('fun.txt', 'r', encoding='UTF-8')
 jokes = f.read().split('\n')
 f.close()
 
-fl = 'start'
+fl_go = 'go'
+while fl_go == 'go':
+    # таймер работы бота
+    time.sleep(random.randint(60, 3600))
+    fl = 'start'
 
 # посылаются случайные шутки через случайные периоды времени
-while fl == 'start':
-    bot.send_message(CHANNEL_NAME, random.choice(jokes))
-    time.sleep(random.randint(60, 3600))
+    if fl == 'start':
+        bot.send_message(CHANNEL_NAME, random.choice(jokes))
+        fl = 'stop'
