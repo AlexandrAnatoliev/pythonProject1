@@ -9,7 +9,11 @@
 import telebot
 import random
 import time
-from config import token, channel
+# from config import token, channel
+
+# убрать токен и канал
+token = "5969843689:AAFskKqCFHbh5pIHCkTQFPyStOVMRJl2G20"
+channel = '@topmostjokes'
 
 # Создаем бота
 bot = telebot.TeleBot(token)
@@ -23,6 +27,8 @@ jokes = f.read().split('\n')
 f.close()
 
 fl_go = 'go'
+# проверяем включение программы
+bot.send_message(CHANNEL_NAME, random.choice(jokes))
 while fl_go == 'go':
     # таймер работы бота
     time.sleep(random.randint(60, 3600))
