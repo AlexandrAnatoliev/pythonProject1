@@ -45,17 +45,22 @@ jokes = f.read().split('\n')
 f.close()
 ```
 
-#### Посылаются случайные шутки через случайные периоды времени
+#### Выставляем время начала работы бота "morning" и окончания "night", чтобы сообщения не будили по ночам
 
 ```python
-fl_go = 'go'
-while fl_go == 'go':
-    # таймер работы бота
-    time.sleep(random.randint(60, 3600))
-    fl = 'start'
+work_bot_fl = True
+while work_bot_fl:
+    current_date_time = datetime.datetime.now()
+    now = current_date_time.time()  # текущее время
+    morning = datetime.time(7, 3, 0)  # время начала работы бота
+    night = datetime.time(23, 45, 0)  # время окончания работы бота
+```
 
-# посылаются случайные шутки через случайные периоды времени
-    if fl == 'start':
-        bot.send_message(CHANNEL_NAME, random.choice(jokes))
-        fl = 'stop'
+#### Посылаются случайные шутки через случайные периоды времени в диапазоне от 1 минуты до 4 часов
+
+```python
+ if morning < now < night:  # если день
+    # таймер работы бота (от 1 минуты до 4 часов)
+    bot.send_message(CHANNEL_NAME, random.choice(jokes))
+    time.sleep(random.randint(60, 14400))
 ```
