@@ -9,6 +9,8 @@
 import telebot
 import random
 import time
+import datetime
+
 # from config import token, channel
 
 # убрать токен и канал
@@ -28,15 +30,14 @@ f = open('fun.txt', 'r', encoding='UTF-8')
 jokes = f.read().split('\n')
 f.close()
 
-fl_go = 'go'
-# проверяем включение программы
-bot.send_message(CHANNEL_NAME, random.choice(jokes))
-while fl_go == 'go':
-    # таймер работы бота
-    time.sleep(random.randint(60, 3600))
-    fl = 'start'
+work_bot_fl = True
+while work_bot_fl:
+    current_date_time = datetime.datetime.now()
+    now = current_date_time.time()  # текущее время
+    morning = datetime.time(7, 3, 0)  # время начала работы бота
+    night = datetime.time(23, 45, 0)  # время окончания работы бота
 
-# посылаются случайные шутки через случайные периоды времени
-    if fl == 'start':
+    if morning < now < night:  # если день
+        # таймер работы бота (от 1 минуты до 4 часов)
         bot.send_message(CHANNEL_NAME, random.choice(jokes))
-        fl = 'stop'
+        time.sleep(random.randint(60, 14400))
