@@ -11,7 +11,9 @@ import random
 import time
 import datetime
 
-from config import token, channel
+# from config import token, channel
+token = "5969843689:AAFskKqCFHbh5pIHCkTQFPyStOVMRJl2G20"
+channel = '@topmostjokes'
 
 # Создаем бота
 bot = telebot.TeleBot(token)
