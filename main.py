@@ -14,7 +14,12 @@ import time
 import datetime
 import schedule
 from multiprocessing import Process
-from config import token, channel
+
+# from config import token, channel
+
+# убрать токены
+token = "5969843689:AAFskKqCFHbh5pIHCkTQFPyStOVMRJl2G20"
+channel = '@topmostjokes'
 
 # Создаем бота
 bot = telebot.TeleBot(token)
