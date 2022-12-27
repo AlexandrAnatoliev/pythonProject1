@@ -18,12 +18,8 @@ from multiprocessing import Process
 # from config import token, channel
 
 # убрать токены
-# token = "5969843689:AAFskKqCFHbh5pIHCkTQFPyStOVMRJl2G20"
-# channel = '@topmostjokes'
-# тестовый токен
-token = "5943261012:AAENwlcynSTVsyFMUSFIX9CVde_73XwNy-Q"
-# тестовый канал
-channel = '@testCHANNELotetz'
+token = "5969843689:AAFskKqCFHbh5pIHCkTQFPyStOVMRJl2G20"
+channel = '@topmostjokes'
 
 # Создаем бота
 bot = telebot.TeleBot(token)
@@ -68,9 +64,9 @@ def first_process():
     Каждое утро "7:08" и каждый вечер "23:49" посылать сообщение в чат.
     :return:
     """
-    schedule.every().day.at("00:03").do(wish_morning)
+    schedule.every().day.at("07:08").do(wish_morning)
     # каждый вечер посылать сообщение в чат
-    schedule.every().day.at("00:04").do(wish_evening)
+    schedule.every().day.at("23:49").do(wish_evening)
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -85,7 +81,7 @@ def second_process():
     while work_bot_fl:
         current_date_time = datetime.datetime.now()
         now = current_date_time.time()  # текущее время
-        morning = datetime.time(0, 2, 0)  # время начала работы бота
+        morning = datetime.time(7, 32, 0)  # время начала работы бота
         night = datetime.time(23, 45, 0)  # время окончания работы бота
 
         if morning < now < night:  # если день
