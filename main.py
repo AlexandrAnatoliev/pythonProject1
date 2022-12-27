@@ -27,8 +27,15 @@ f = open('fun.txt', 'r', encoding='UTF-8')
 jokes = f.read().split('\n')
 f.close()
 
-good_morning = ["Доброе утро", "Отличного всем дня"]
-good_night = ["Спокойной ночи, друзья", "Сладких всем снов"]
+# Загружаем список утренних приветствий
+m = open('morning_text.txt', 'r', encoding='UTF-8')
+good_morning = m.read().split('\n')
+m.close()
+
+# Загружаем список вечерних пожеланий
+n = open('nigth_text.txt', 'r', encoding='UTF-8')
+good_night = n.read().split('\n')
+n.close()
 
 
 def wish_morning():
@@ -52,9 +59,9 @@ def first_process():
     Каждое утро "7:08" и каждый вечер "23:49" посылать сообщение в чат.
     :return:
     """
-    schedule.every().day.at("07:08").do(wish_morning)
+    schedule.every().day.at("21:42").do(wish_morning)
     # каждый вечер посылать сообщение в чат
-    schedule.every().day.at("23:49").do(wish_evening)
+    schedule.every().day.at("21:43").do(wish_evening)
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -75,7 +82,7 @@ def second_process():
         if morning < now < night:  # если день
             # таймер работы бота (от 1 до 3 часов)
             bot.send_message(CHANNEL_NAME, random.choice(jokes))
-            time.sleep(random.randint(3600, 10800))
+            time.sleep(random.randint(36, 108))
 
 
 if __name__ == '__main__':
