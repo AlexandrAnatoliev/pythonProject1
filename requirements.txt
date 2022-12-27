@@ -7,3 +7,4 @@
 # Чтобы установить его, набери: pip install pytelegrambotapi
 
 pytelegrambotapi
+schedule

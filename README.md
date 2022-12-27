@@ -4,7 +4,8 @@
 
 ## Описание
 
-Бот получает список анекдотов из файла и каждый час постит в канал один из этих анекдотов.
+Бот получает список анекдотов из файла и каждый час постит в канал один из этих анекдотов. Желает "Доброе утро" и "
+спокойной ночи" читателям канала
 
 ## Требования
 
@@ -29,7 +30,11 @@ channel = '@topjokes...'
 
 ```python
 import telebot
+import random
 import time
+import datetime
+import schedule
+from multiprocessing import Process
 from config import token, channel
 ```
 
@@ -45,6 +50,13 @@ jokes = f.read().split('\n')
 f.close()
 ```
 
+#### Пишем возможные варианты для добрых пожеланий с утра и вечером
+
+```python
+good_morning = ["Доброе утро", "Отличного всем дня"]
+good_night = ["Спокойной ночи, друзья", "Сладких всем снов"]
+```
+
 #### Выставляем время начала работы бота "morning" и окончания "night", чтобы сообщения не будили по ночам
 
 ```python
@@ -56,11 +68,58 @@ while work_bot_fl:
     night = datetime.time(23, 45, 0)  # время окончания работы бота
 ```
 
+#### Посылаем случайную фразу из списка good_morning в канал CHANNEL_NAME
+
+```python
+def wish_morning():
+    bot.send_message(CHANNEL_NAME, random.choice(good_morning))
+```
+
+#### Посылаем случайную фразу из списка good_night в канал CHANNEL_NAME
+
+```python
+def wish_evening():
+    bot.send_message(CHANNEL_NAME, random.choice(good_night))
+```
+
+#### Каждое утро "07:08" и каждый вечер "23:49" посылать сообщение в чат. ВАЖНО! формат времени "07:08", а не "7:08"!
+
+```python
+def first_process():
+    schedule.every().day.at("07:08").do(wish_morning)
+    # каждый вечер посылать сообщение в чат
+    schedule.every().day.at("23:49").do(wish_evening)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+```
+
 #### Посылаются случайные шутки через случайные периоды времени в диапазоне от 1 минуты до 4 часов
 
 ```python
- if morning < now < night:  # если день
-    # таймер работы бота (от 1 минуты до 4 часов)
-    bot.send_message(CHANNEL_NAME, random.choice(jokes))
-    time.sleep(random.randint(60, 14400))
+def second_process():
+    work_bot_fl = True
+    while work_bot_fl:
+        current_date_time = datetime.datetime.now()
+        now = current_date_time.time()  # текущее время
+        morning = datetime.time(7, 3, 0)  # время начала работы бота
+        night = datetime.time(23, 45, 0)  # время окончания работы бота
+
+        if morning < now < night:  # если день
+            # таймер работы бота (от 1 до 3 часов)
+            bot.send_message(CHANNEL_NAME, random.choice(jokes))
+            time.sleep(random.randint(3600, 10800))
+```
+
+#### Запускаем два процесса параллельно
+
+```python
+if __name__ == '__main__':
+    # Запускаем два процесса параллельно
+    p1 = Process(target=first_process, daemon=True)
+    p2 = Process(target=second_process, daemon=True)
+    p1.start()
+    p2.start()
+    p1.join()
+    p2.join()
 ```
