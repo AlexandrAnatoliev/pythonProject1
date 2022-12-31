@@ -34,7 +34,7 @@ f.close()
 
 # Загружаем список утренних приветствий
 m = open('morning_text.txt', 'r', encoding='UTF-8')
-good_morning = m.read().split('\n')
+good_morning = m.read().split('\n\n')
 m.close()
 
 # Загружаем список вечерних пожеланий
